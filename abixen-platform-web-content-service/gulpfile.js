@@ -16,7 +16,10 @@ var gulp = require('gulp'),
     ignore = require('gulp-ignore'),
     del = require('del'),
     config = require('./build-config'),
-    devMode = true;
+    devMode = true,
+    templateCache = require('gulp-angular-templatecache'),
+    concat = require('gulp-concat'),
+    addStream = require('add-stream');
 
 gulp.task('clean', cleanTask);
 gulp.task('templates', templatesTask);
@@ -26,6 +29,19 @@ gulp.task('build', buildTask);
 gulp.task('adminLibs', adminLibsTask);
 gulp.task('dev', ['build'], devTask);
 gulp.task('default', ['build']);
+gulp.task('build-app.js', templateCacheTask);
+
+function prepareTemplates() {
+    return gulp.src('src/main/web/**/*.html')
+        .pipe(templateCache({ module:'templateCache', standalone:true }));
+}
+
+function templateCacheTask() {
+    return gulp.src('src/main/web/**/*.js')
+        .pipe(addStream.obj(prepareTemplates()))
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('src/main/resources/static/'));
+}
 
 function cleanTask() {
 

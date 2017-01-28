@@ -21,6 +21,7 @@
             'webContentServiceStructureModule',
             'webContentServiceTemplateModule',
             'webContentServiceWebContentModule',
+            'templates',
             'ui.router'
         ]);
 })();

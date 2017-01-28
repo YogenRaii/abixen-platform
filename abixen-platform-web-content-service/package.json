@@ -40,6 +40,8 @@
     "postinstall": "bower install"
   },
   "devDependencies": {
+    "add-stream": "^1.0.0",
+    "gulp-angular-templatecache": "^2.0.0",
     "jscs": "^2.11.0"
   }
 }
